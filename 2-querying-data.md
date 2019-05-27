@@ -86,3 +86,44 @@ resultDF = spark.sql("select * from Top10FemaleFirstNames")
 display(resultDF)
 ```
 
+## Exercise 2
+
+`peopleDF`中的salary列中，有些值是负数，需要使用`abs()`方法将salary列中的值修改为大于0的数。
+
+```sql
+from pyspark.sql.functions import abs
+peopleWithFixedSalariesDF = peopleDF.withColumn('salary',abs(peopleDF.salary))
+```
+
+### Step 1
+
+基于`peopleWithFixedSalariesDF` 创建一个变量名为`peopleWithFixedSalaries20KDF`的DataFrame，要求：
+
+- 过滤掉所有salary在20k以下的数据
+- 添加一个新列，列名为salary10k，计算方法
+  - 23, 000， 返回"2"
+  - 57, 400，返回"6"
+  - 1, 231,375， 返回"123"
+
+```sql
+from pyspark.sql.functions import col
+peopleWithFixedSalaries20KDF = peopleWithFixedSalariesDF.filter("salary >= 20000").withColumn("salary10k", round(col("salary")/10000))
+
+display(peopleWithFixedSalaries20KDF)
+```
+
+### Step 2
+
+基于`peopleDF`，返回一个新的变量名为`carenDF`的DataFrame,要求：
+
+- 返回一行一列
+- 返回的列名为total
+- 返回性别为女性，名字为Caren，出生日期在1980年之前的总数
+
+```sql
+from pyspark.sql.functions import month
+carenDF = peopleDF.filter("gender='F'").filter("firstName = 'Caren'").filter(year("birthDate") < 1980).agg(count("id").alias("total"))
+display(carenDF)
+```
+
+
