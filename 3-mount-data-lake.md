@@ -21,7 +21,7 @@ Azure Data Lake Storage (ADLS)是传统Data Warehouse之外的一个可选方案
 
 步骤二：在Data Lake中授权步骤一中创建的App以读写所有文件及子文件夹的权限。
 
-步骤三：在Azure Databricks File System (DBFS) 中使用App的`Client id`， `Client Key`和定义的`tenant id`访问Data Lake。
+步骤三：在Azure Databricks File System (DBFS) 中使用App的`Client Id`， `Client Key`和定义的`tenant Id`访问Data Lake。
 
 ```sql
 -- Data Lake变量
