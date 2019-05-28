@@ -15,7 +15,7 @@ Azure Data Lake Storage (ADLS)是传统Data Warehouse之外的一个可选方案
 
 ### 在DBFS中加载ADLS
 
-访问Data Lake需要使用Azure Active Directory进行身份验证，在Spark中使用，可以通过Service Principle服务进行授权。
+访问Data Lake需要使用Azure Active Directory进行身份验证，在DBFS中使用，可以通过Service Principle服务进行授权。
 
 步骤一：创建新的App Registration, 获取App的`Client Id`和`Client Key`。
 
