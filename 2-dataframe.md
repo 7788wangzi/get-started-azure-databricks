@@ -1,6 +1,9 @@
+## DataFrame入门
 ## 使用DataFrame
 
+Apache Spark和Azure Databricks允许使用DataFrame进行数据查询。
 
+DataFrames从Resilient Distributed Datasets(RDD)派生而来，它非常像关系数据库中的表，有列名和数据类型。DataFrame是优化过的表格，比如在读取json文件时可以将数组对象和层状结构作为列的值进行处理。
 
 ### DataFrame语法与SQL语法的对应表
 
@@ -67,9 +70,80 @@ display(dordonDF)
 ```
 
 ## DataFrame的常用方法
+**`show()`和`display()`**
 
+使用`show()`或`show(n)`显示DataFrame数据
 
-## Exercise
+```sql
+myDF.show()
+
+-- 显示前10行数据
+myDF.show(10)
+```
+
+使用`display()`和`display(df.limit(n))`以HTML表格显示DataFrame数据
+
+```sql
+display(myDF)
+
+-- 以HTML显示前10行数据
+display(myDF.limit(10))
+```
+
+**`select()`和`filter()`**
+
+使用`select()`方法选取列，可以使用`alias()`方法修改列名。
+
+```sql
+from pyspark.sql.functions import col
+
+myDF = peopleDF 
+  	.select("firstName","middleName","lastName",col("birthDate").alias("date"),"gender") 
+```
+
+使用`filter()`方法根据条件过滤数据。
+
+```sql
+from pyspark.sql.functions import year
+
+myDF = peopleDF
+	.filter("gender='F'")
+	.filter(year("birthDate") > "1990")
+```
+
+**`orderBy()`和`groupBy()`**
+
+使用`orderBy()`方法按照某列排序。
+
+```sql
+-- 升序
+myDF = peopleDF.orderBy("birthYear")
+
+-- 使用desc方法降序
+from pyspark.sql.functions import desc
+myDF = peopleDF.orderBy(desc("birthYear"))
+```
+
+使用`groupBy()`和`count()`方法按某列进行数量统计。
+
+```sql
+myDF = (peopleDF.select(year("birthDate").alias("birthYear")).groupBy("birthYear").count())
+```
+
+使用`agg()`方法给统计出的列取别名。
+
+```sql
+from pyspark.sql.functions import count
+myDF = (peopleDF.select(year("birthDate").alias("birthYear")).groupBy("birthYear").agg(count("birthYear").alias("total")))
+```
+
+使用`distinct()`方法获取不重复数据。
+
+```sql
+myDF = (peopleDF.select("firstName").distinct())
+```
+
+## Exercise 1
 
 ### Step 1
 
