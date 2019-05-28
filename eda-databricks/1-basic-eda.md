@@ -2,7 +2,7 @@
 
 ### 从CSV文件加载数据到Azure Databricks
 
-步骤一：从本地上次CSV文件，将CSV数据转换为数据表（下载使用的 [CSV文件](/static/UsedCars.csv)）。
+**步骤一：** 从本地上次CSV文件，将CSV数据转换为数据表（下载使用的 [CSV文件](static/UsedCars.csv)）。
 
 CSV数据表的结构如下：
 
@@ -20,7 +20,7 @@ root
  |-- Weight: string (nullable = true)
 ```
 
-步骤二：创建Spark DataFrame对象进行数据分析。
+**步骤二：** 创建Spark DataFrame对象进行数据分析。
 
 在Notebook中使用SQL语句查询数据表
 
@@ -75,7 +75,7 @@ display(df.describe("Price"))
 
 从数据统计中，是可以得出哪些列是有数据缺失的，那么，如何得出哪些列是有数据缺失的？缺失的数据是多少？
 
-**注意：**记得在前几个命令中通过`df.count()`获取的输出吗！把summary中每一列在count行的值和df.count()的值进行比较，有差异的即为存在数据缺失的列，差异额即为当前列缺失数据的数量。
+**注意：** 记得在前几个命令中通过`df.count()`获取的输出吗！把summary中每一列在count行的值和df.count()的值进行比较，有差异的即为存在数据缺失的列，差异额即为当前列缺失数据的数量。
 
 ### 数据清理
 
@@ -163,7 +163,7 @@ ax.scatter(pdf.Age, pdf.Price)
 display(fig)
 ```
 
-![](/static/plots_diesel_price_age.png)
+![](static/plots_diesel_price_age.png)
 
 使用`df.corr()`分析各因素的相关性。
 
@@ -176,4 +176,4 @@ sns.heatmap(pdf[['Price','Age', 'KM', 'Weight', 'CC', 'HP']].corr(),annot=True, 
 display(fig2)
 ```
 
-![](/static/_plots_diesel_all.png)
+![](static/_plots_diesel_all.png)
