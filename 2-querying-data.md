@@ -1,14 +1,56 @@
-## Querying Data
+## 使用DataFrame
 
-使用`spark.read.parquet()`从`.parquet`文件创建DataFrame变量。
+
+
+### DataFrame语法与SQL语法的对应表
+
+| SQL                                     | DataFrame (Python)                    |
+| --------------------------------------- | ------------------------------------- |
+| `SELECT col_1 FROM myTable`             | `df.select(col("col_1"))`             |
+| `DESCRIBE myTable`                      | `df.printSchema()`                    |
+| `SELECT * FROM myTable WHERE col_1 > 0` | `df.filter(col("col_1") > 0)`         |
+| `..GROUP BY col_2`                      | `..groupBy(col("col_2"))`             |
+| `..ORDER BY col_2`                      | `..orderBy(col("col_2"))`             |
+| `..WHERE year(col_3) > 1990`            | `..filter(year(col("col_3")) > 1990)` |
+| `SELECT * FROM myTable LIMIT 10`        | `df.limit(10)`                        |
+| `display(myTable)` (text format)        | `df.show()`                           |
+| `display(myTable)` (html format)        | `display(df)`                         |
+
+
+### 访问数据
+
+从`.parquet`文件创建DataFrame
+
+```sql
+ipGeocodeDF = spark.read.parquet("/mnt/training/ip-geocode.parquet")
+```
+
+从`.csv`文件创建DataFrame
+
+```sql
+bikeShareingDayDF = (spark.read.option("inferSchema","true")
+                    .option("header","true")
+                    .csv("/mnt/training/bikeSharing/data-001/day.csv"))
+```
+
+从`.json`文件创建DataFrame
+
+```sql
+databricksBlogDF = spark.read.option("inferSchema","true").option("header","true").json("/mnt/training/databricks-blog.json")
+```
+
+DataFrame变量创建完成后， 使用`show()`方法显示DataFrame中的数据，使用`show(n)`方法显示前n行数据。同时，也可以使用`display(df)`方法以HTML格式显示数据表格。
+
+### 应用举例
+
+步骤一：使用`spark.read.parquet()`从`.parquet`文件创建DataFrame变量。
 
 ```sql
 peopleDF = spark.read.parquet("/mnt/training/dataframes/people-10m.parquet")
 display(peopleDF)
 ```
 
-
-比较给定两个名字的使用量，从1990年以后逐年比较。
+步骤二：按照年份比较给定的两个名字（Donna和Dorthy）在1990年以后出生的女孩子中的使用量。
 
 ```sql
 from pyspark.sql.functions import col
@@ -23,6 +65,8 @@ dordonDF = (peopleDF
 )
 display(dordonDF)
 ```
+
+## DataFrame的常用方法
 
 
 ## Exercise
