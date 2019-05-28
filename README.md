@@ -7,3 +7,4 @@ Azure Databricks提供了基于Apache Spark数据引擎的数据处理服务，�
 - 基于Python语言的spark方法，参考[pyspark.sql.functions library](5-pyspark-sql-functions.md)
 - 如何处理Data Lake中的数据，参考[加载Data Lake到DBFS](3-mount-data-lake.md)
 - 如何处理Azure Blob中的数据，参考[加载Azure Blob到DBFS](4-mount-azure-blob.md)
+- 如何进行探索性数据分析，参考[数据清理与相关性分析](eda-databricks/1-basic-eda.md)
